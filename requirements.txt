@@ -1,0 +1,5 @@
+flask
+flask_sqlalchemy
+gevent
+Flask-WTF
+flask-cors
