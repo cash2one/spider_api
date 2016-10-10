@@ -24,6 +24,9 @@ if __name__ == "__main__":
         # socketio.run(app) runs a production ready server when eventlet or gevent are installed,
         # so gevent WSGIServer is not in use now
         monkey.patch_all()
-        app.run(host, port, debug=True, threaded=True)
+        # app.run(host, port, debug=True, threaded=True)
+        from gevent.wsgi import WSGIServer
+        http_server = WSGIServer((host, port), app)
+        http_server.serve_forever()
 
     run(app_argsparse())
