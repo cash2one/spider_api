@@ -21,6 +21,7 @@ class company_info(db.Model):
     from_web = db.Column("from_web", VARCHAR(length=255))
     create_time = db.Column("create_time", INTEGER)
     status = db.Column("status", INTEGER)
+    uid = db.Column("uid", INTEGER)
 
 
     def __init__(self, dic):
@@ -38,6 +39,8 @@ class company_info(db.Model):
         self.from_web=dic["from_web"]
         self.status=dic["status"]
         self.create_time = int(time.time())
+        self.uid = dic["uid"]
+
 
 
 class job_info(db.Model):
@@ -55,8 +58,7 @@ class job_info(db.Model):
     create_time = db.Column("create_time", INTEGER)
     status = db.Column("status", INTEGER)
     from_web = db.Column("from_web", VARCHAR(length=255))
-
-
+    uid = db.Column("uid", INTEGER)
 
     def __init__(self, dic):
         self.web_id=dic["web_id"]
@@ -70,4 +72,13 @@ class job_info(db.Model):
         self.status=dic["status"]
         self.create_time = int(time.time())
         self.from_web=dic["from_web"]
-        
+        self.uid = dic["uid"]
+
+class spider_user(db.Model):
+    __tablename__ = "spider_user"
+
+    uid = db.Column("uid", INTEGER, primary_key=True, nullable=False, autoincrement=True)
+    name = db.Column("name", VARCHAR(length=255))
+    token = db.Column("token", VARCHAR(length=255))
+    create_time = db.Column("create_time", INTEGER)
+    status = db.Column("status", INTEGER)

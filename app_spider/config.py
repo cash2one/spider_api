@@ -15,7 +15,6 @@ db_username = cf.get("DEFAULT", "db_username")
 db_name = cf.get("DEFAULT", "db_name")
 log_file = cf.get("DEFAULT", "log_file")
 error_log_file = cf.get("DEFAULT", "error_log")
-TOKEN = cf.get("DEFAULT", "token")
 
 LOGIN_EXPIRE_TIME_SECONDS = 3600 * 2
 
