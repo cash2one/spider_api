@@ -33,7 +33,9 @@ def initialize_app(application, config, profile=False):
 
     # 注册蓝图
     from app_spider.views.lagou.lagou_api import lagou_api_view
+    from app_spider.views.login.login_view import login_view
     application.register_blueprint(lagou_api_view)
+    application.register_blueprint(login_view)
 
 
     # restful api 不跨域保护

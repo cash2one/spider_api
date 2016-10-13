@@ -82,3 +82,13 @@ class spider_user(db.Model):
     token = db.Column("token", VARCHAR(length=255))
     create_time = db.Column("create_time", INTEGER)
     status = db.Column("status", INTEGER)
+    password = db.Column("password", VARCHAR(length=255), nullable=False)
+    level = db.Column("level", VARCHAR(length=50), nullable=False)
+
+    def __init__(self, dic):
+        self.name = dic["name"]
+        self.token = dic["token"]
+        self.create_time = int(time.time())
+        self.status = 1
+        self.password = dic["password"]
+        self.level = dic["level"]

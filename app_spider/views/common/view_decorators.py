@@ -19,3 +19,17 @@ def permission_check(func):
         kwargs.update(uid=uid)
         return func(*args, **kwargs)
     return _decorate
+
+
+def session_check(redirect_for='/'):
+    """只验证session"""
+
+    def decorated(f):
+        @wraps(f)
+        def decorated_fn(*args, **kwargs):
+            if not session or "uid" not in session or "username" not in session:
+                return redirect(redirect_for)
+            get_session_info(session)
+            return f(*args, **kwargs)
+        return decorated_fn
+    return decorated
