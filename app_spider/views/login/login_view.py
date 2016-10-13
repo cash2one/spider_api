@@ -14,7 +14,6 @@ def login():
     else:
         username = request.form.get("username")
         password = request.form.get("password")
-
         query = spider_user.query.filter_by(name=username, password=password, status=1).first()
         if not query:
             return succeed_resp(result=0)

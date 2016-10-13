@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html> -->
 <html lang="zh-cn">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap 101 Template</title>
+    <title>蜂巢</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -15,13 +15,188 @@
       <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="static/js/jquery-3.0.0.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="static/js/bootstrap.min.js"></script>
+    <link href="static/css/login.css" rel="stylesheet">
+    <style type="text/css">
+      body{
+      	text-align: center;
+      	background: #F7FAFC;
+      	overflow: hidden;
+      	background: #fff;
+      	}
+    </style>
   </head>
   <body>
-    <h1>你好，世界！</h1>
+    <div class="container" style="position: absolute; width: 100%;">
+      <form class="form-signin" role="form">
+        <h2 class="form-signin-heading">蜂巢</h2>
+        <div id="username_form" class="form-group">
+          <input id="username" name="username" type="text" class="form-control" placeholder="username" required autofocus>
+        </div>
+        <div id="password_form" class="form-group">
+          <input id="password" name="password" type="password" class="form-control" placeholder="Password" required>
+        </div>
+        <label>
+            申请账号,请联系站长 195432020@qq.com
+        </label>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+        <button id="login" type="button" class="btn btn-lg btn-primary btn-block">登录</button>
+      </form>
+    </div>
+    <canvas id="Mycanvas"></canvas>
+    <script>
+    	//定义画布宽高和生成点的个数
+    	var WIDTH = window.innerWidth, HEIGHT = window.innerHeight, POINT = 35;
+    	var canvas = document.getElementById('Mycanvas');
+    	canvas.width = WIDTH,
+    	canvas.height = HEIGHT;
+    	var context = canvas.getContext('2d');
+    	context.strokeStyle = 'rgba(0,0,0,0.02)',
+    	context.strokeWidth = 1,
+    	context.fillStyle = 'rgba(0,0,0,0.05)';
+    	var circleArr = [];
+
+    	//线条：开始xy坐标，结束xy坐标，线条透明度
+    	function Line (x, y, _x, _y, o) {
+    		this.beginX = x,
+    		this.beginY = y,
+    		this.closeX = _x,
+    		this.closeY = _y,
+    		this.o = o;
+    	}
+    	//点：圆心xy坐标，半径，每帧移动xy的距离
+    	function Circle (x, y, r, moveX, moveY) {
+    		this.x = x,
+    		this.y = y,
+    		this.r = r,
+    		this.moveX = moveX,
+    		this.moveY = moveY;
+    	}
+    	//生成max和min之间的随机数
+    	function num (max, _min) {
+    		var min = arguments[1] || 0;
+    		return Math.floor(Math.random()*(max-min+1)+min);
+    	}
+    	// 绘制原点
+    	function drawCricle (cxt, x, y, r, moveX, moveY) {
+    		var circle = new Circle(x, y, r, moveX, moveY)
+    		cxt.beginPath()
+    		cxt.arc(circle.x, circle.y, circle.r, 0, 2*Math.PI)
+    		cxt.closePath()
+    		cxt.fill();
+    		return circle;
+    	}
+    	//绘制线条
+    	function drawLine (cxt, x, y, _x, _y, o) {
+    		var line = new Line(x, y, _x, _y, o)
+    		cxt.beginPath()
+    		cxt.strokeStyle = 'rgba(0,0,0,'+ o +')'
+    		cxt.moveTo(line.beginX, line.beginY)
+    		cxt.lineTo(line.closeX, line.closeY)
+    		cxt.closePath()
+    		cxt.stroke();
+
+    	}
+    	//初始化生成原点
+    	function init () {
+    		circleArr = [];
+    		for (var i = 0; i < POINT; i++) {
+    			circleArr.push(drawCricle(context, num(WIDTH), num(HEIGHT), num(15, 2), num(10, -10)/40, num(10, -10)/40));
+    		}
+    		draw();
+    	}
+
+    	//每帧绘制
+    	function draw () {
+    		context.clearRect(0,0,canvas.width, canvas.height);
+    		for (var i = 0; i < POINT; i++) {
+    			drawCricle(context, circleArr[i].x, circleArr[i].y, circleArr[i].r);
+    		}
+    		for (var i = 0; i < POINT; i++) {
+    			for (var j = 0; j < POINT; j++) {
+    				if (i + j < POINT) {
+    					var A = Math.abs(circleArr[i+j].x - circleArr[i].x),
+    						B = Math.abs(circleArr[i+j].y - circleArr[i].y);
+    					var lineLength = Math.sqrt(A*A + B*B);
+    					var C = 1/lineLength*7-0.009;
+    					var lineOpacity = C > 0.03 ? 0.03 : C;
+    					if (lineOpacity > 0) {
+    						drawLine(context, circleArr[i].x, circleArr[i].y, circleArr[i+j].x, circleArr[i+j].y, lineOpacity);
+    					}
+    				}
+    			}
+    		}
+    	}
+
+    	//调用执行
+    	window.onload = function () {
+    		init();
+    		setInterval(function () {
+    			for (var i = 0; i < POINT; i++) {
+    				var cir = circleArr[i];
+    				cir.x += cir.moveX;
+    				cir.y += cir.moveY;
+    				if (cir.x > WIDTH) cir.x = 0;
+    				else if (cir.x < 0) cir.x = WIDTH;
+    				if (cir.y > HEIGHT) cir.y = 0;
+    				else if (cir.y < 0) cir.y = HEIGHT;
+
+    			}
+    			draw();
+    		}, 16);
+    	}
+
+    </script>
   </body>
+  <script>
+    $("#login").click(function(event){
+       var username = $("#username").val().trim();
+       var password = $("#password").val();
+       if (username.length == 0){
+         $("#username_form").attr("class","form-group has-error");
+         return;
+       }
+       if (password.length == 0){
+         $("#password_form").attr("class","form-group has-error");
+         return;
+       }
+       $.post("/login",
+          {
+            username:username,
+            password:password
+          },
+          function(data, status){
+            if (data["result"]==1){
+              window.location.href="/index";
+            }
+            else{
+              alert("用户名密码错误");
+            }
+          });
+    });
+
+    $("#username").change(function(event){
+      var username = $("#username").val().trim();
+      if (username.length != 0){
+        $("#username_form").attr("class","form-group");
+        return;
+      };
+    })
+
+    $("#password").change(function(event){
+      var username = $("#password").val();
+      if (username.length != 0){
+        $("#password_form").attr("class","form-group");
+        return;
+      };
+    })
+
+    $("form").keypress(function(e){
+      if(e.which == 13){
+          jQuery('#login').click();
+      }
+    })
+  </script>
 </html>
