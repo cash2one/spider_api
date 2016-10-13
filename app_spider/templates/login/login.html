@@ -15,10 +15,10 @@
       <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="static/js/jquery-3.0.0.min.js"></script>
+    <script src="{{url_for('static', filename='js/jquery-3.0.0.min.js')}}"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="static/js/bootstrap.min.js"></script>
-    <link href="static/css/login.css" rel="stylesheet">
+    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+    <link href="{{url_for('static', filename='css/login.css')}}" rel="stylesheet">
     <style type="text/css">
       body{
       	text-align: center;
