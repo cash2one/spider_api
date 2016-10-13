@@ -24,7 +24,7 @@ class ConfigObject():
     CSRF_ENABLED = True
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://%s:%s@%s:%s/%s?charset=utf8" % (db_username, db_password, db_host, db_port, db_name)
-    MAX_CONTENT_LENGTH = 10 * 1024 * 1024 * 1024
+    # MAX_CONTENT_LENGTH = 10 * 1024 * 1024 * 1024
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SQLALCHEMY_MAX_OVERFLOW = 1000
     SQLALCHEMY_POOL_SIZE = 5
