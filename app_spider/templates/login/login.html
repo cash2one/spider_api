@@ -22,14 +22,13 @@
     <style type="text/css">
       body{
       	text-align: center;
-      	background: #F7FAFC;
+      	background: #e7e5d0;
       	overflow: hidden;
-      	background: #fff;
       	}
     </style>
   </head>
   <body>
-    <div class="container-fluid" style="position: absolute; width: 100%;">
+    <div class="container-fluid" style="position: absolute; width: 100%; top:25%">
       <form class="form-signin" role="form">
         <h2 class="form-signin-heading">蜂巢</h2>
         <div id="username_form" class="form-group">
@@ -53,9 +52,9 @@
     	canvas.width = WIDTH,
     	canvas.height = HEIGHT;
     	var context = canvas.getContext('2d');
-    	context.strokeStyle = 'rgba(0,0,0,0.02)',
+    	context.strokeStyle = 'rgba(0,0,100,0.02)',
     	context.strokeWidth = 1,
-    	context.fillStyle = 'rgba(0,0,0,0.05)';
+    	context.fillStyle = 'rgba(0,0,100,0.05)';
     	var circleArr = [];
 
     	//线条：开始xy坐标，结束xy坐标，线条透明度
@@ -92,7 +91,7 @@
     	function drawLine (cxt, x, y, _x, _y, o) {
     		var line = new Line(x, y, _x, _y, o)
     		cxt.beginPath()
-    		cxt.strokeStyle = 'rgba(0,0,0,'+ o +')'
+    		cxt.strokeStyle = 'rgba(0,0,100,'+ o +')'
     		cxt.moveTo(line.beginX, line.beginY)
     		cxt.lineTo(line.closeX, line.closeY)
     		cxt.closePath()
