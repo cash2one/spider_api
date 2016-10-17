@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-from flask import request
+from flask import request, session, redirect
 from functools import wraps
 from app_spider.views.common.utils import failed_resp
 from app_spider.models import db, spider_user
@@ -27,9 +27,8 @@ def session_check(redirect_for='/'):
     def decorated(f):
         @wraps(f)
         def decorated_fn(*args, **kwargs):
-            if not session or "uid" not in session or "username" not in session:
+            if not session or "uid" not in session or "username" not in session or "level" not in session:
                 return redirect(redirect_for)
-            get_session_info(session)
             return f(*args, **kwargs)
         return decorated_fn
     return decorated

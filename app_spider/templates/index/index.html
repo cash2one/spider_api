@@ -1,5 +1,7 @@
 {% extends "public/head.html" %}
 {% block head %}
+<script src="static/js/sparklines.js"></script>
+<script src="static/js/index.js"></script>
 
 {% include "public/header.html" %}
 <div class="content">
@@ -24,55 +26,35 @@
 	    <!-- Page heading ends -->
 	    <div class="matter">
         <div class="container">
+
           <div class="row">
-            <div class="col-md-4">
-              <div class="widget">
+            <div class="col-md-12">
+              <!-- List starts -->
+              <ul id="spark_data" class="today-datas">
+                <!-- List #1 -->
+                <li>
+                  <!-- Graph -->
+                  <div><span id="company_query" class="spark"></span></div>
+                  <!-- Text -->
+                  <div id="company_count" class="datas-text">共有 0 家公司</div>
+                </li>
+                <li>
+                  <!-- Graph -->
+                  <div><span id="job_query" class="spark"></span></div>
+                  <!-- Text -->
+                  <div id="job_count" class="datas-text">共有 0 个职位</div>
+                </li>
 
-                <div class="widget-head">
-                  <div class="pull-left">今天统计</div>
-                  <div class="widget-icons pull-right">
-                    <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
-                    <a href="#" class="wclose"><i class="icon-remove"></i></a>
-                  </div>
-                  <div class="clearfix"></div>
-                </div>
-
-                <div class="widget-content">
-                  <div class="padd">
-
-                    <!-- Visitors, pageview, bounce rate, etc., Sparklines plugin used -->
-                    <ul class="current-status">
-                      <li>
-                        <span id="status1"></span> <span class="bold">Visits : 2000</span>
-                      </li>
-                      <li>
-                        <span id="status2"></span> <span class="bold">Unique Visitors : 1,345</span>
-                      </li>
-                      <li>
-                        <span id="status3"></span> <span class="bold">Pageviews : 2000</span>
-                      </li>
-                      <li>
-                        <span id="status4"></span> <span class="bold">Pages / Visit : 2000</span>
-                      </li>
-                      <li>
-                        <span id="status5"></span> <span class="bold">Avg. Visit Duration : 2000</span>
-                      </li>
-                      <li>
-                        <span id="status6"></span> <span class="bold">Bounce Rate : 2000</span>
-                      </li>
-                      <li>
-                        <span id="status7"></span> <span class="bold">% New Visits : 2000</span>
-                      </li>
-                    </ul>
-
-                  </div>
-                </div>
-
-              </div>
+              </ul>
             </div>
           </div>
+
         </div>
 		  </div>
     </div>
+</div>
+
+<div id="show_detail" style="display:none;position:fixed;z-index:9999999;">
+<label></label>
 </div>
 {% endblock head %}

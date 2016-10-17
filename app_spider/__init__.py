@@ -45,6 +45,8 @@ def initialize_app(application, config, profile=False):
     csrf.init_app(application)
     csrf.exempt(lagou_api_view)
     csrf.exempt(login_view)
+    csrf.exempt(data_view)
+
 
 def add_request_handler(application, database):
     @application.before_request

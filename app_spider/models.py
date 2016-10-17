@@ -22,6 +22,7 @@ class company_info(db.Model):
     create_time = db.Column("create_time", INTEGER)
     status = db.Column("status", INTEGER)
     uid = db.Column("uid", INTEGER)
+    create_day = db.Column("create_day", INTEGER)
 
 
     def __init__(self, dic):
@@ -40,6 +41,8 @@ class company_info(db.Model):
         self.status=dic["status"]
         self.create_time = int(time.time())
         self.uid = dic["uid"]
+        day_str = time.strftime("%Y-%m-%d",time.localtime(self.create_time))
+        self.create_day = int(time.mktime(time.strptime(day_str,"%Y-%m-%d")))
 
 
 
@@ -59,6 +62,8 @@ class job_info(db.Model):
     status = db.Column("status", INTEGER)
     from_web = db.Column("from_web", VARCHAR(length=255))
     uid = db.Column("uid", INTEGER)
+    create_day = db.Column("create_day", INTEGER)
+
 
     def __init__(self, dic):
         self.web_id=dic["web_id"]
@@ -73,6 +78,8 @@ class job_info(db.Model):
         self.create_time = int(time.time())
         self.from_web=dic["from_web"]
         self.uid = dic["uid"]
+        day_str = time.strftime("%Y-%m-%d",time.localtime(self.create_time))
+        self.create_day = int(time.mktime(time.strptime(day_str,"%Y-%m-%d")))
 
 class spider_user(db.Model):
     __tablename__ = "spider_user"
@@ -85,6 +92,7 @@ class spider_user(db.Model):
     password = db.Column("password", VARCHAR(length=255), nullable=False)
     level = db.Column("level", VARCHAR(length=50), nullable=False)
 
+
     def __init__(self, dic):
         self.name = dic["name"]
         self.token = dic["token"]
@@ -92,3 +100,4 @@ class spider_user(db.Model):
         self.status = 1
         self.password = dic["password"]
         self.level = dic["level"]
+        
