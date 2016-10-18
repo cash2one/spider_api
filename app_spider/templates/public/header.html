@@ -166,15 +166,15 @@
       if (status){
         var _x = x + r/2.0;
         var __y = y + r/2.0*1.732;
-        drawLine(context, x, y, _x, __y, 0.05);
+        drawLine(context, x, y, _x, __y, 0.02);
         x = x + r*2;
         status = !status;
         continue;
       }else{
         var _x = x - r/2.0;
         var __y = y + r/2.0*1.732;
-        drawLine(context, x, y, _x, __y, 0.05);
-        drawLine(context, x, y, x+r, y, 0.05);
+        drawLine(context, x, y, _x, __y, 0.02);
+        drawLine(context, x, y, x+r, y, 0.02);
         x = x + r;
         status = !status;
         continue;
