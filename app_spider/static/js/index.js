@@ -38,6 +38,7 @@ function company_spark_line(msg){
         lineColor: '#0ca5e7',
         fillColor: '#e5f3f9'});
       $('#company_query').bind('sparklineRegionChange', function(ev){
+        console.log(ev.sparklines[0].getCurrentRegionFields());
         var sparkline = ev.sparklines[0],
             region = sparkline.getCurrentRegionFields(),
             value = region.y;
