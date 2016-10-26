@@ -33,8 +33,8 @@ class InputDataResource(Resource):
         elif table == "job_info":
             if check_data(request.form, job_info):
                 return failed_resp("data exists", 401)
-            if not check_data(request.form, job_info, db_id=request.form.get("company_id","-1")):
-                return failed_resp("job_id is not exists", 401)
+            if not check_data(request.form, company_info, db_id=request.form.get("company_id","-1")):
+                return failed_resp("company_id is not exists", 401)
 
             job_info_form, job_info_ex_form = split_form(request.form, job_info)
             job_info_form["uid"]=uid
