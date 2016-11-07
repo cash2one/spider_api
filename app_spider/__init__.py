@@ -21,7 +21,7 @@ def create_app(database, config="app_spider.config.ConfigObject"):
     database.init_app(app)
     database.create_all(app=app)
     mongo_client.init_app(app=app)
-
+    
     app.logger_name = "spider_api"
     app.logger.handlers = create_logger_handler("spider_api", is_stream_handler=True)
 
