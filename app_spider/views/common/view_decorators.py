@@ -5,6 +5,28 @@ from app_spider.views.common.utils import failed_resp
 from app_spider.models import db, spider_user
 
 
+def cls_decorate(my_decorator, exempt=None):
+    if exempt is None:
+        exempt = []
+    else:
+        exempt = exempt if isinstance(exempt, list) else [exempt]
+    def add_decorator(cls, addr, func, deco):
+        if func.__name__ in exempt:
+            print ("%s exempt deco:%s" % (func.__name__, deco.__name__))
+            return
+        setattr(cls, addr, deco(func))
+    def decorator(cls):
+        for attr in cls.__dict__:  # just for it's own method without inherited method:
+            func = getattr(cls, attr)
+            if callable(func):
+                if isinstance(my_decorator, list):
+                    for deco in my_decorator:
+                        add_decorator(cls, attr, func, deco)
+                else:
+                    add_decorator(cls, attr, func, my_decorator)
+        return cls
+    return decorator
+
 def permission_check(func):
     @wraps(func)
     def _decorate(*args, **kwargs):

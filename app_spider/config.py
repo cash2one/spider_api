@@ -16,6 +16,13 @@ db_name = cf.get("DEFAULT", "db_name")
 log_file = cf.get("DEFAULT", "log_file")
 error_log_file = cf.get("DEFAULT", "error_log")
 
+
+mongo_dbname = cf.get("DEFAULT", "mongo_dbname")
+mongo_host = cf.get("DEFAULT", "mongo_host")
+mongo_port = cf.get("DEFAULT", "mongo_port")
+mongo_username = cf.get("DEFAULT", "mongo_username")
+mongo_password = cf.get("DEFAULT", "mongo_password")
+
 LOGIN_EXPIRE_TIME_SECONDS = 3600 * 2
 
 class ConfigObject():

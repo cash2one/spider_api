@@ -32,7 +32,7 @@ def post():
 
     job_data ={
                 "web_id":"a123",          # 网页的id
-                "company_id":"9",      # 公司表的唯一id
+                "company_id":"1",      # 公司表的唯一id
                 "name":"码农",            # 职位名称
                 "salary":"123456",          # 薪资
                 "job_year":"1年",	        # 工作经验
@@ -53,7 +53,7 @@ def patch():
         "web_id":"1234",         # 网页的id
         "from_web":"lagou",       # 数据来源
         "status":1,         # 数据状态,0表示未完成,1表示已完成,2表示过期
-        "db_id":"",          # 数据库中某条记录的唯一id
+        "db_id":"1",          # 数据库中某条记录的唯一id
         "data_json":json.dumps({"category":"b",       # 公司类别
                                 "level":"4",          # 公司融资等级
                                 "people_number":1123,  # 公司人数})
@@ -71,7 +71,7 @@ def patch():
         "web_id":"a123",         # 网页的id
         "from_web":"lagou",       # 数据来源
         "status":1,         # 数据状态,0表示未完成,1表示已完成,2表示过期
-        "db_id":"10",          # 数据库中某条记录的唯一id
+        "db_id":"1",          # 数据库中某条记录的唯一id
         "data_json":json.dumps({"salary":"999999",          # 薪资
                                 "job_year":"2年",	        # 工作经验
                                 "web_url":"http://www.google.com",         # 职位url
@@ -89,4 +89,4 @@ def delete():
     pass
 
 if __name__ == "__main__":
-    post()
+    patch()

@@ -6,9 +6,13 @@ import time
 from flask import Flask, request
 from flask_wtf.csrf import CsrfProtect
 from flask_cors import CORS
+from flask_pymongo import PyMongo
 
 from app_spider.common.log import create_logger_handler
 from app_spider.models import db
+
+
+mongo_client = PyMongo()
 
 def create_app(database, config="app_spider.config.ConfigObject"):
     app = Flask(__name__)
@@ -16,11 +20,13 @@ def create_app(database, config="app_spider.config.ConfigObject"):
     initialize_app(application=app, config=config)
     database.init_app(app)
     database.create_all(app=app)
+    mongo_client.init_app(app=app)
 
     app.logger_name = "spider_api"
-    app.logger.handlers = create_logger_handler("spider_api")
+    app.logger.handlers = create_logger_handler("spider_api", is_stream_handler=True)
 
     add_request_handler(application=app, database=database)
+
 
     return app
 
@@ -35,9 +41,12 @@ def initialize_app(application, config, profile=False):
     from app_spider.views.input_data.input_api import input_data_api_view
     from app_spider.views.login.login_view import login_view
     from app_spider.views.data.data_view import data_view
+    from app_spider.views.input_mongodb.input_api import input_mongodb_api_view
+
     application.register_blueprint(input_data_api_view)
     application.register_blueprint(login_view)
     application.register_blueprint(data_view)
+    application.register_blueprint(input_mongodb_api_view)
 
 
     # restful api 不跨域保护
@@ -46,6 +55,7 @@ def initialize_app(application, config, profile=False):
     csrf.exempt(input_data_api_view)
     csrf.exempt(login_view)
     csrf.exempt(data_view)
+    csrf.exempt(input_mongodb_api_view)
 
 
 def add_request_handler(application, database):
