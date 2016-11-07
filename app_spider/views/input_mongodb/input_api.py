@@ -36,7 +36,7 @@ class InputMongodbResource(Resource):
             # 插入数据
             data["create_time"] = int(time.time())
             data["update_time"] = int(time.time())
-            data['relation'] = one_relation if one_relation else None
+            data['relation'] = one_relation
             obj_id = mongo_client.db[table].insert_one(data).inserted_id
 
             # 在关联数据中, 插入当前数据_id
