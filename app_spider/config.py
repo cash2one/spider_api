@@ -37,3 +37,7 @@ class ConfigObject():
     SQLALCHEMY_POOL_SIZE = 5
     SQLALCHEMY_POOL_TIMEOUT = 10
     SQLALCHEMY_POOL_RECYCLE = 30
+
+    MONGO_URI = "mongodb://{MONGO_USERNAME}:{MONGO_PASSWORD}@{mongo_host}:{mongo_port}/{mongo_dbname}".\
+                format(MONGO_USERNAME=MONGO_USERNAME, MONGO_PASSWORD=MONGO_PASSWORD, mongo_host=mongo_host,\
+                mongo_port=mongo_port, mongo_dbname=mongo_dbname)
