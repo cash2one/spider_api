@@ -3,7 +3,7 @@ import json
 import requests
 
 header = {
-    "token":"fx12345678"
+    "token":"fx64562983"
 }
 
 def get():
@@ -33,7 +33,7 @@ def post():
         }),
         "relation":json.dumps([])
     }
-    company_url = "http://localhost:8080/api/input_mongodb/company"
+    company_url = "http://114.215.186.236:8888/api/input_mongodb/company"
     req = requests.post(url=company_url, data=company_data, headers=header)
     print(req.content)
     # for i in range(100):
