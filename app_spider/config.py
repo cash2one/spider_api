@@ -20,8 +20,8 @@ error_log_file = cf.get("DEFAULT", "error_log")
 mongo_dbname = cf.get("DEFAULT", "mongo_dbname")
 mongo_host = cf.get("DEFAULT", "mongo_host")
 mongo_port = cf.get("DEFAULT", "mongo_port")
-MONGO_USERNAME = cf.get("DEFAULT", "mongo_username")
-MONGO_PASSWORD = cf.get("DEFAULT", "mongo_password")
+mongo_username = cf.get("DEFAULT", "mongo_username")
+mongo_password = cf.get("DEFAULT", "mongo_password")
 
 LOGIN_EXPIRE_TIME_SECONDS = 3600 * 2
 
@@ -38,6 +38,8 @@ class ConfigObject():
     SQLALCHEMY_POOL_TIMEOUT = 10
     SQLALCHEMY_POOL_RECYCLE = 30
 
-    MONGO_URI = "mongodb://{MONGO_USERNAME}:{MONGO_PASSWORD}@{mongo_host}:{mongo_port}/{mongo_dbname}".\
-                format(MONGO_USERNAME=MONGO_USERNAME, MONGO_PASSWORD=MONGO_PASSWORD, mongo_host=mongo_host,\
-                mongo_port=mongo_port, mongo_dbname=mongo_dbname)
+    mongo_dbname = mongo_dbname
+    mongo_host = mongo_host
+    mongo_port = mongo_port
+    mongo_username = mongo_username
+    mongo_password = mongo_password
