@@ -15,7 +15,7 @@ def post():
         "classify":"company",
     }),
         "data":json.dumps({			 # 数据部分
-        		"web_id":"123456123123",         # 网页的id
+        		"web_id":"3",         # 网页的id
                 "name":"test",           # 公司名称
                 "boss":"test",           # 公司老板
                 "category":"a",       # 公司类别
@@ -36,28 +36,30 @@ def post():
     company_url = "http://localhost:8080/api/input_mongodb/company"
     req = requests.post(url=company_url, data=company_data, headers=header)
     print(req.content)
-    # job_data={
-    #     "data":json.dumps({			 # 数据部分
-    #     		"web_id":"aaa",          # 网页的id
-    #             "name":"test",            # 职位名称
-    #             "salary":1234,          # 薪资
-    #             "job_year":"1年",       # 工作经验
-    #             "education":"本科",       # 学历
-    #             "employee_type":"全职",   # 全职 or 实习
-    #             "web_url":"www.baidu.com",         # 职位url
-    #             "from_web":"lagou",	        # 数据来源
-    #             "status":1,          # 数据状态,0表示未完成,1表示已完成,2表示过期
-    #             "location":"shanghai"
-    #     }),
-    #     "relation":json.dumps([{
-    #         "table":"company",
-    #         "web_id":"12345",
-    #         "from_web":"lagou"
-    #     }])
-    # }
-    # company_url = "http://localhost:8080/api/input_mongodb/job"
-    # req = requests.post(url=company_url, data=job_data, headers=header)
-    # print(req.content)
+    # for i in range(100):
+    #     job_data={
+    #     "rule":json.dumps({"classify":"job"}),
+    #         "data":json.dumps({			 # 数据部分
+    #         		"web_id":str(i),          # 网页的id
+    #                 "name":"test",            # 职位名称
+    #                 "salary":1234,          # 薪资
+    #                 "job_year":"1年",       # 工作经验
+    #                 "education":"本科",       # 学历
+    #                 "employee_type":"全职",   # 全职 or 实习
+    #                 "web_url":"www.baidu.com",         # 职位url
+    #                 "from_web":"lagou",	        # 数据来源
+    #                 "status":1,          # 数据状态,0表示未完成,1表示已完成,2表示过期
+    #                 "location":"shanghai"
+    #         }),
+    #         "relation":json.dumps([{
+    #             "table":"company",
+    #             "web_id":"1",
+    #             "from_web":"lagou"
+    #         }])
+    #     }
+    #     company_url = "http://localhost:8080/api/input_mongodb/job"
+    #     req = requests.post(url=company_url, data=job_data, headers=header)
+    #     print(req.content)
 
 
 def patch():

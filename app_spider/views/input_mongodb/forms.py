@@ -12,16 +12,12 @@ def check_company(data, extend_rule, table):
     if query.count() == 0:
         return True
     else:
-        current_app.logger.warning("web_id:{web_id}, from_web:{from_web} 数据已存在".format(web_id=str(web_id), from_web=str(from_web)))
+        current_app.logger.warning("table:{table}, web_id:{web_id}, from_web:{from_web} 数据已存在".format(table=table, web_id=str(web_id), from_web=str(from_web)))
         return False
-
-
-def check_job(data, extend_rule, table):
-    pass
 
 rule_dic = {
     "company":check_company,
-    "job":check_job,
+    "job":check_company,
 }
 
 def check_form(form, table):

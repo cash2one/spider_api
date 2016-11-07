@@ -29,18 +29,21 @@ class InputMongodbResource(Resource):
                     continue
                 relation_table = i.pop("table")
                 relation_query = mongo_client.db[relation_table].find(i)
+                if relation_query.count() == 0:
+                    continue
                 one_relation[relation_table] = [i["_id"] for i in relation_query]
 
             # 插入数据
             data["create_time"] = int(time.time())
-            data['relation'] = one_relation
+            data["update_time"] = int(time.time())
+            data['relation'] = one_relation if one_relation else None
             obj_id = mongo_client.db[table].insert_one(data).inserted_id
 
             # 在关联数据中, 插入当前数据_id
 
             for table_name, value in one_relation.items():
-                query_count = mongo_client.db[table_name].update({"_id":{"$in":value}}, {"$push":{table:obj_id}}, multi=True)
-            return succeed_resp()
+                query_count = mongo_client.db[table_name].update({"_id":{"$in":value}}, {"$push":{"relation.{table}".format(table=table):obj_id}}, multi=True)
+            return succeed_resp(_id=str(obj_id))
         except:
             current_app.logger.error(traceback.format_exc())
             return failed_resp("error", 500)
