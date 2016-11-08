@@ -5,10 +5,10 @@ from app_spider.views.common.view_decorators import permission_check, cls_decora
 from app_spider.views.common.utils import *
 from app_spider import mongo_client
 from .forms import *
+from .forms import rule_dic
 
 import json
 import traceback
-import time
 input_mongodb_api_view = Blueprint("input_mongodb_api_view", __name__)
 input_mongodb_api = Api(input_mongodb_api_view)
 
@@ -17,32 +17,22 @@ class InputMongodbResource(Resource):
     def post(self, table, uid):
         try:
             # 检查表单
-
-            relation, data, status = check_form(request.form, table)
+            global rule_dic
+            relation, data, rule, status, message = check_form(request.form, table)
             if not status:
-                return failed_resp("error", 500)
+                return failed_resp(message, 500)
 
-            # 查找关联数据, 并且获取_id
-            one_relation = {}
-            for i in relation:
-                if "table" not in i.keys():
-                    continue
-                relation_table = i.pop("table")
-                relation_query = mongo_client.db[relation_table].find(i)
-                if relation_query.count() == 0:
-                    continue
-                one_relation[relation_table] = [i["_id"] for i in relation_query]
+            # 根据classify字段调用相应的函数
+            # 返回 _id, 状态, 信息
+            classify = rule["classify"]
+            print (data, rule, table, relation, uid)
+            print (rule_dic[classify])
+            obj_id, status, message = rule_dic[classify](data, rule, table, relation, uid) # 根据classify选择不同的函数进行插入数据操作
 
-            # 插入数据
-            data["create_time"] = int(time.time())
-            data["update_time"] = int(time.time())
-            data['relation'] = one_relation
-            obj_id = mongo_client.db[table].insert_one(data).inserted_id
+            # 如果状态为False, 表示插入失败, message里为失败信息
+            if not status:
+                return failed_resp(message, 500)
 
-            # 在关联数据中, 插入当前数据_id
-
-            for table_name, value in one_relation.items():
-                query_count = mongo_client.db[table_name].update({"_id":{"$in":value}}, {"$push":{"relation.{table}".format(table=table):obj_id}}, multi=True)
             return succeed_resp(_id=str(obj_id))
         except:
             current_app.logger.error(traceback.format_exc())
