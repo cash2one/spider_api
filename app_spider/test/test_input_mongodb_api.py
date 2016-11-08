@@ -3,40 +3,42 @@ import json
 import requests
 
 header = {
-    "token":"fx12345678"
+    # "token":"fx12345678"
+    "token":"fx64562983"
 }
-url = "http://localhost:8080"
+# url = "http://localhost:8080"
+url = "http://114.215.186.236:8888"
 
 def get():
     pass
 
 def post():
-    # company_data={
-    # "rule":json.dumps({
-    #     "classify":"company",
-    # }),
-    #     "data":json.dumps({			 # 数据部分
-    #     		"web_id":"3",         # 网页的id
-    #             "name":"test",           # 公司名称
-    #             "boss":"test",           # 公司老板
-    #             "category":"a",       # 公司类别
-    #             "level":"3",          # 公司融资等级
-    #             "people_number":123,  # 公司人数
-    #             "location":"tttt",       # 公司地址
-    #             "description":"ttttt",    # 公司描述
-    #             "web_url":"http://www.baidu.com",        # 招聘网站页面url
-    #             "company_url":"http://www.baidu.com",    # 公司官方网站url
-    #             "rate":"",           # 公司简历处理率(投递后7天内)
-    #             "from_web":"lagou",       # 数据来源
-    #             "status":"1",         # 数据状态,0表示未完成,1表示已完成,2表示过期
-    #             "aaaa":"bbbb",
-    #             "ccc":"ddd"
-    #     }),
-    #     "relation":json.dumps([])
-    # }
-    # company_url = url+"/api/input_mongodb/company"
-    # req = requests.post(url=company_url, data=company_data, headers=header)
-    # print(req.content)
+    company_data={
+    "rule":json.dumps({
+        "classify":"company",
+    }),
+        "data":json.dumps({			 # 数据部分
+        		"web_id":"3",         # 网页的id
+                "name":"test",           # 公司名称
+                "boss":"test",           # 公司老板
+                "category":"a",       # 公司类别
+                "level":"3",          # 公司融资等级
+                "people_number":123,  # 公司人数
+                "location":"tttt",       # 公司地址
+                "description":"ttttt",    # 公司描述
+                "web_url":"http://www.baidu.com",        # 招聘网站页面url
+                "company_url":"http://www.baidu.com",    # 公司官方网站url
+                "rate":"",           # 公司简历处理率(投递后7天内)
+                "from_web":"lagou",       # 数据来源
+                "status":"1",         # 数据状态,0表示未完成,1表示已完成,2表示过期
+                "aaaa":"bbbb",
+                "ccc":"ddd"
+        }),
+        "relation":json.dumps([])
+    }
+    company_url = url+"/api/input_mongodb/company"
+    req = requests.post(url=company_url, data=company_data, headers=header)
+    print(req.content)
     for i in range(100):
         job_data={
         "rule":json.dumps({"classify":"job"}),

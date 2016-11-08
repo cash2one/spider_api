@@ -25,8 +25,6 @@ class InputMongodbResource(Resource):
             # 根据classify字段调用相应的函数
             # 返回 _id, 状态, 信息
             classify = rule["classify"]
-            print (data, rule, table, relation, uid)
-            print (rule_dic[classify])
             obj_id, status, message = rule_dic[classify](data, rule, table, relation, uid) # 根据classify选择不同的函数进行插入数据操作
 
             # 如果状态为False, 表示插入失败, message里为失败信息
